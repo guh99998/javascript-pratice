@@ -1,14 +1,12 @@
-//Cria a função adicionarTarefa
-function adicionarTarefa() {
-  //a variável inputTarefa, recebe o elemento com id de "inputTarefa" do nosso HTML
+let tarefas = [];
+
+function adicionarTarefa()
+{
   const inputTarefa = document.getElementById("inputTarefa");
-  //coloca o VALOR do inputTarefa dentro da variável tarefa
-  //o trim retira os espaços no começo e no final do texto
   let tarefa = inputTarefa.value.trim();
 
   const mensagem = document.getElementById("mensagem");
 
-  //se o valor do input for vazio então mostre uma mensagem de erro para o usuário
   if(tarefa == "")
   {
     mensagem.style.color = "#A34743";
@@ -18,20 +16,27 @@ function adicionarTarefa() {
   } else
   {
     mensagem.style.color = "#28A745";
-    //Cria uma variável que armazena uma mensagem dentro dela
     let mensagemSucesso = "Tarefa adicionada com sucesso!";
-    //pega o elemento com ID "mensagem" no nosso HTML e troca o conteúdo do texto pela variável mensagem que declaramos no começo do código
     mensagem.textContent = mensagemSucesso;
-    //pega o elemento com o ID "listaTarefas" do nosso HTML (que é uma tag de lista UL)
-    const listaTarefas = document.getElementById("listaTarefas");
-    //cria um novo elemento LI para a nossa tag lista
-    let novaTarefa = document.createElement("li");
-    //coloca o VALOR do input tarefa dentro desse LI criado
-    novaTarefa.textContent = tarefa;
-    //Adiciona a variável "novaTarefa" na nossa lista de tarefas
-    listaTarefas.appendChild(novaTarefa);
+
+    tarefas.push(tarefa);
+
+    renderizarTarefas();
   }
 
-  //Limpa o nosso campo de input
   inputTarefa.value = "";
 }
+
+function renderizarTarefas()
+{
+  const listaTarefas = document.getElementById("listaTarefas");
+  listaTarefas.innerHTML = "";
+
+  let i = 0;
+  for (i; i < tarefas.length; i++)
+  {
+    let novaTarefa = document.createElement("li");
+    novaTarefa.textContent = tarefas[i];
+    listaTarefas.appendChild(novaTarefa);
+  }
+} 
